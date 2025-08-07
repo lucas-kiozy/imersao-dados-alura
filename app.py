@@ -171,13 +171,70 @@ import plotly.express as px
 #              labels={'usd': 'Salário médio anual (USD)', 'senioridade': 'Nível de senioridade'})
 # fig.show()
 
-remoto_contagem = df_limpo['remoto'].value_counts().reset_index()
-remoto_contagem.columns = ['tipo_trabalho', 'quantidade']
-fig = px.pie(remoto_contagem, 
-             names='tipo_trabalho',
-             values='quantidade',
-             title='Distribuição de Vagas por Tipo de Trabalho',
-             hole=0.4
-             )
-fig.update_traces(textinfo='percent+label')
+# remoto_contagem = df_limpo['remoto'].value_counts().reset_index()
+# remoto_contagem.columns = ['tipo_trabalho', 'quantidade']
+# fig = px.pie(remoto_contagem, 
+#              names='tipo_trabalho',
+#              values='quantidade',
+#              title='Distribuição de Vagas por Tipo de Trabalho',
+#              hole=0.4
+#              )
+# fig.update_traces(textinfo='percent+label')
+# fig.show()
+
+# *Exercício gerar gráfico de salário médio por pais com cargo de data scientist usando plotly*
+#import pycountry
+from babel import Locale
+locale_pt = Locale('pt')
+
+# Filtrar apenas cargos "Data Scientist"
+df_ds = df_limpo[df_limpo['cargo'].str.contains('Data Scientist', case=False, na=False)]
+
+# # Mapear código país para nome completo usando pycountry
+# def get_country_name(code):
+#     try:
+#         return pycountry.countries.get(alpha_2=code).name
+#     except:
+#         return code
+# df_ds['pais_completo'] = df_ds['residencia'].apply(get_country_name)
+
+def get_country_name_pt(code):
+    try:
+        return locale_pt.territories[code.upper()]
+    except KeyError:
+        return code
+    
+# Aplicando ao dataframe filtrado
+df_ds['pais_portugues'] = df_ds['residencia'].apply(get_country_name_pt)
+
+# Agrupa salário médio por país e traz o nome completo também
+salario_medio_por_pais = (
+    df_ds.groupby(['residencia', 'pais_portugues'])['usd']
+    .mean()
+    .reset_index()
+    .sort_values(by='usd', ascending=False)
+)
+
+# Gráfico com hover mostrando nome completo
+fig = px.bar(
+    salario_medio_por_pais,
+    x='residencia',
+    y='usd',
+    title='Salário Médio em USD por País da empresa para Cientista de Dados',
+    labels={'residencia': 'País (Código)', 'usd': 'Salário Médio (USD)'},
+    text=salario_medio_por_pais['usd'].map('${:,.2f}'.format),
+    hover_data={'usd': ':.2f', 'pais_portugues': True, 'residencia': False},
+    height=600
+)
+
+fig.update_traces(textposition='outside')
+fig.update_layout(
+    xaxis_tickangle=-45,
+    yaxis=dict(title='Salário Médio (USD)'),
+    uniformtext_minsize=8,
+    uniformtext_mode='hide',
+    margin=dict(t=70, b=150),
+    template='plotly_white'
+)
+
 fig.show()
