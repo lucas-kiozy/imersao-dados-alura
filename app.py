@@ -1,7 +1,8 @@
 import pandas as pd
 import numpy as np
 
-df = pd.read_csv("https://raw.githubusercontent.com/guilhermeonrails/data-jobs/refs/heads/main/salaries.csv")
+#df = pd.read_csv("https://raw.githubusercontent.com/guilhermeonrails/data-jobs/refs/heads/main/salaries.csv")  #online
+df = pd.read_csv('dataset.csv')  #arquivo local
 
 df = df.rename(columns={
     'work_year': 'ano',
@@ -117,5 +118,66 @@ df_limpo = df.dropna()  # Remove linhas onde há campos NaN
 # print(df_limpo.isnull().sum())
 
 df_limpo = df_limpo.assign(ano = df_limpo['ano'].astype('int64'))  # Converte a coluna 'ano' para o tipo inteiro
-print(df_limpo.info())
-print(df_limpo.head(6))
+# print(df_limpo.info())
+# print(df_limpo.head(6))
+
+
+#*** COMEÇANDO A AULA 3 CRIANDO GRÁFICOS ***
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+#df_limpo['senioridade'].value_counts().plot(kind='bar', title='Distribuição de Vagas por Senioridade')
+#sns.barplot(data=df_limpo, x='senioridade', y='usd').set(title='Salário por Senioridade')
+
+# plt.figure(figsize=(8, 5))
+# sns.barplot(data=df_limpo, x='senioridade', y='usd')
+# plt.title('Salário médio por senioridade')   
+# plt.xlabel('Nível de senioridade')         
+# plt.ylabel('Salário médio anual (USD)')
+
+# ordem_senioridade_por_usd = df_limpo.groupby('senioridade')['usd'].mean().sort_values(ascending=True).index
+
+# plt.figure(figsize=(8, 5))
+# sns.barplot(data=df_limpo, x='senioridade', y='usd', order=ordem_senioridade_por_usd)
+# plt.title('Salário médio por senioridade')   
+# plt.xlabel('Nível de senioridade')         
+# plt.ylabel('Salário médio anual (USD)')
+
+# plt.figure(figsize=(8, 4))
+# sns.histplot(df_limpo['usd'], bins=40, kde=True)
+# plt.title('Distribuição dos salários anuais (USD)')   
+# plt.xlabel('Salário em USD')         
+# plt.ylabel('Frequência')
+
+# plt.figure(figsize=(8, 5))
+# sns.boxplot(x=df_limpo['usd'])
+# plt.title('Boxplot salário (USD)')   
+# plt.xlabel('Salário em USD')   
+
+# ordem_senioridade = ['Junior', 'Pleno', 'Sênior', 'Executivo']
+# plt.figure(figsize=(8, 5))
+# sns.boxplot(data=df_limpo, x='senioridade', y='usd', order=ordem_senioridade, palette='Set2', hue='senioridade')
+# plt.title('Boxplot da distribuição salarial por senioridade')
+# plt.ylabel('Senioridade')
+# plt.ylabel('Salário em USD')
+
+# plt.show()
+
+import plotly.express as px
+
+# senioridade_media_salario = df_limpo.groupby('senioridade')['usd'].mean().sort_values(ascending=False).reset_index()
+# fig = px.bar(senioridade_media_salario, x='senioridade', y='usd',
+#              title='Salário médio por senioridade',
+#              labels={'usd': 'Salário médio anual (USD)', 'senioridade': 'Nível de senioridade'})
+# fig.show()
+
+remoto_contagem = df_limpo['remoto'].value_counts().reset_index()
+remoto_contagem.columns = ['tipo_trabalho', 'quantidade']
+fig = px.pie(remoto_contagem, 
+             names='tipo_trabalho',
+             values='quantidade',
+             title='Distribuição de Vagas por Tipo de Trabalho',
+             hole=0.4
+             )
+fig.update_traces(textinfo='percent+label')
+fig.show()
