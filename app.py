@@ -249,3 +249,12 @@ df_limpo['residencia_iso3'] = df_limpo['residencia'].apply(iso2_to_iso3)
 df_limpo.to_csv('dataset_limpo.csv', index=False)
 
 #Dashboard será criado no arquivo dashboard.py
+
+# ## Criar o ambiente virtual:
+# python3 -m venv .venv
+# ## Ativar o ambiente virtual em Windows:
+# .venv\Scripts\Activate
+# # Ativar o ambiente virtual em MAC/LINUX:
+# source .venv/bin/activate
+# ## Criar um arquivo chamado requirements.txt e adicionar os pacotes necessários
+# pip install -r requirements.txt
