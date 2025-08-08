@@ -183,63 +183,69 @@ import plotly.express as px
 # fig.show()
 
 # *Exercício gerar gráfico de salário médio por pais com cargo de data scientist usando plotly*
-#import pycountry
-from babel import Locale
-locale_pt = Locale('pt')
+# from babel import Locale
+# locale_pt = Locale('pt')
 
-# Filtrar apenas cargos "Data Scientist"
-df_ds = df_limpo[df_limpo['cargo'].str.contains('Data Scientist', case=False, na=False)]
+# # Filtrar apenas cargos "Data Scientist"
+# df_ds = df_limpo[df_limpo['cargo'].str.contains('Data Scientist', case=False, na=False)]
 
-# # Mapear código país para nome completo usando pycountry
-# def get_country_name(code):
+# def get_country_name_pt(code):
 #     try:
-#         return pycountry.countries.get(alpha_2=code).name
-#     except:
+#         return locale_pt.territories[code.upper()]
+#     except KeyError:
 #         return code
-# df_ds['pais_completo'] = df_ds['residencia'].apply(get_country_name)
-
-def get_country_name_pt(code):
-    try:
-        return locale_pt.territories[code.upper()]
-    except KeyError:
-        return code
     
-# Aplicando ao dataframe filtrado
-df_ds['pais_portugues'] = df_ds['residencia'].apply(get_country_name_pt)
+# # Aplicando ao dataframe filtrado
+# df_ds['pais_portugues'] = df_ds['residencia'].apply(get_country_name_pt)
 
-# Agrupa salário médio por país e traz o nome completo também
-salario_medio_por_pais = (
-    df_ds.groupby(['residencia', 'pais_portugues'])['usd']
-    .mean()
-    .reset_index()
-    .sort_values(by='usd', ascending=False)
-)
+# # Agrupa salário médio por país e traz o nome completo também
+# salario_medio_por_pais = (
+#     df_ds.groupby(['residencia', 'pais_portugues'])['usd']
+#     .mean()
+#     .reset_index()
+#     .sort_values(by='usd', ascending=False)
+# )
 
-# Gráfico com hover mostrando nome completo
-fig = px.bar(
-    salario_medio_por_pais,
-    x='residencia',
-    y='usd',
-    title='Salário Médio em USD por País da empresa para Cientista de Dados',
-    labels={'residencia': 'País (Código)', 'usd': 'Salário Médio (USD)'},
-    text=salario_medio_por_pais['usd'].map('${:,.2f}'.format),
-    hover_data={'usd': ':.2f', 'pais_portugues': True, 'residencia': False},
-    height=600
-)
+# # Gráfico com hover mostrando nome completo
+# fig = px.bar(
+#     salario_medio_por_pais,
+#     x='residencia',
+#     y='usd',
+#     title='Salário Médio em USD por País da empresa para Cientista de Dados',
+#     labels={'residencia': 'País (Código)', 'usd': 'Salário Médio (USD)'},
+#     text=salario_medio_por_pais['usd'].map('${:,.2f}'.format),
+#     hover_data={'usd': ':.2f', 'pais_portugues': True, 'residencia': False},
+#     height=600
+# )
 
-fig.update_traces(textposition='outside')
-fig.update_layout(
-    xaxis_tickangle=-45,
-    yaxis=dict(title='Salário Médio (USD)'),
-    uniformtext_minsize=8,
-    uniformtext_mode='hide',
-    margin=dict(t=70, b=150),
-    template='plotly_white'
-)
+# fig.update_traces(textposition='outside')
+# fig.update_layout(
+#     xaxis_tickangle=-45,
+#     yaxis=dict(title='Salário Médio (USD)'),
+#     uniformtext_minsize=8,
+#     uniformtext_mode='hide',
+#     margin=dict(t=70, b=150),
+#     template='plotly_white'
+# )
 
-fig.show()
+# fig.show()
 
 
-#*** COMEÇANDO A AULA 4 CRIANDO DASHBOARDS INTERATIVOS ***
+#*** COMEÇANDO A AULA 4 CRIANDO DASHBOARDS INTERATIVOS/EXPORTANDO DATAFRAME ***
+
+import pycountry
+
+# Função para converter ISO-2 para ISO-3
+def iso2_to_iso3(code):
+    try:
+        return pycountry.countries.get(alpha_2=code).alpha_3
+    except:
+        return None
+
+# Criar nova coluna com código ISO-3
+df_limpo['residencia_iso3'] = df_limpo['residencia'].apply(iso2_to_iso3)
+
+# Exportar DataFrame para CSV
+df_limpo.to_csv('dataset_limpo.csv', index=False)
 
 #Dashboard será criado no arquivo dashboard.py
