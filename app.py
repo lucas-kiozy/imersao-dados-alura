@@ -238,3 +238,8 @@ fig.update_layout(
 )
 
 fig.show()
+
+
+#*** COMEÇANDO A AULA 4 CRIANDO DASHBOARDS INTERATIVOS ***
+
+#Dashboard será criado no arquivo dashboard.py
