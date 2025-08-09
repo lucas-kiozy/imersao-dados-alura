@@ -5,7 +5,7 @@
 ## 📝 Sobre
 
 Projeto desenvolvido durante a **Imersão de Dados** da Alura.  
-Este repositório contém os Notebooks das aulas e desafios realizados.  
+Este repositório contém o material das aulas e exercício proposto realizado.  
 
 📊 O dashboard final está disponível em: [**Streamlit**](https://imersao-dados-alura-kiozy.streamlit.app/)
 
