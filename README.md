@@ -7,32 +7,46 @@
 Projeto desenvolvido durante a **Imersão de Dados** da Alura.  
 Este repositório contém os Notebooks das aulas e desafios realizados.  
 
-📊 O dashboard final está disponível em: [**Acesse aqui**](https://imersao-dados-alura-kiozy.streamlit.app/)
+📊 O dashboard final está disponível em: [**Streamlit**](https://imersao-dados-alura-kiozy.streamlit.app/)
 
 ---
 
 ## 📅 Roteiro da Imersão
 
-- **Aula 01:** Introdução à análise de dados, Python, Pandas e estatística  
-- **Aula 02:** Visualização de dados com gráficos e distribuições  
-- **Aula 03:** Correlações e insights exploratórios  
-- **Aula 04:** Manipulação e junção de dados (merge)  
-- **Aula 05:** Modelagem, Machine Learning e storytelling
+- **Aula 00:** Primeiros passos com Python 
+- **Aula 01:** Explore Dados com Pandas 
+- **Aula 02:** Aprenda a Limpar e Preparar os Dados 
+- **Aula 03:** Crie Gráficos e conte histórias com Dados
+- **Aula 04:** Construa um Dashboard interativo
 
 ---
 
 ## 🚀 Tecnologias
 
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" width="40" height="40"/>
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" alt="Pandas" width="40" height="40"/>
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" alt="NumPy" width="40" height="40"/>
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/seaborn/seaborn-original.svg" alt="Seaborn" width="40" height="40"/>
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/matplotlib/matplotlib-original.svg" alt="Matplotlib" width="40" height="40"/>
+<table>
+<tr>
+<td align="center">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="40" height="40"/><br>Python
+</td>
+<td align="center">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" width="40" height="40"/><br>Pandas
+</td>
+<td align="center">
+<img src="https://upload.wikimedia.org/wikipedia/commons/3/31/NumPy_logo_2020.svg" width="40" height="40"/><br>NumPy
+</td>
+<td align="center">
+<img src="https://seaborn.pydata.org/_images/logo-mark-lightbg.svg" width="40" height="40"/><br>Seaborn
+</td>
+<td align="center">
+<img src="https://upload.wikimedia.org/wikipedia/commons/8/84/Matplotlib_icon.svg" width="40" height="40"/><br>Matplotlib
+</td>
+</tr>
+</table>
 
 ---
 
 ## 👥 Time
 
-| <img src="https://avatars.githubusercontent.com/u/58722041?v=4" width="80" height="80"> |
+| <img src="https://github.com/lucas-kiozy.png" width="80" height="80"> |
 |:--:|
 | **Lucas Vieira** |
